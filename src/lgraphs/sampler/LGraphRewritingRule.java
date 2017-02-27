@@ -30,6 +30,30 @@ public class LGraphRewritingRule {
     String topic;           // Optional string to group the rules
     
     LGraph pattern;
+
+    public LGraph getPattern() {
+        return pattern;
+    }
+
+    public void setPattern(LGraph pattern) {
+        this.pattern = pattern;
+    }
+
+    public List<LGraph> getNegatedPatterns() {
+        return negatedPatterns;
+    }
+
+    public void setNegatedPatterns(List<LGraph> negatedPatterns) {
+        this.negatedPatterns = negatedPatterns;
+    }
+
+    public LGraph getReplacement() {
+        return replacement;
+    }
+
+    public void setReplacement(LGraph replacement) {
+        this.replacement = replacement;
+    }
     List<LGraph> negatedPatterns;
     List<Map<LGraphNode, LGraphNode>> mapsFromNegatedPatterns;    // mapping between the nodes of negated patterns to pattern
     
