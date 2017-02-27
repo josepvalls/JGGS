@@ -6,7 +6,10 @@
 package lgraphs.sampler;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lgraphs.LGraph;
 import lgraphs.LGraphEquivalence;
 
@@ -14,12 +17,11 @@ import lgraphs.LGraphEquivalence;
  *
  * @author santi
  */
-public class LGraphGrammarSystematicDFSIterator {
+public class LGraphGrammarSystematicDFSIterator implements Iterator<LGraphGrammarSampler>{
     List<LGraphGrammarSampler> open;
     boolean filterEquivalents = false;
     
     List<LGraph> previousSolutions = new ArrayList<LGraph>();
-    
     
     public LGraphGrammarSystematicDFSIterator(LGraphGrammarSampler sampler, boolean a_filterEquivalents)
     {
@@ -27,7 +29,6 @@ public class LGraphGrammarSystematicDFSIterator {
         open.add(sampler);
         filterEquivalents = a_filterEquivalents;
     }
-    
     
     public LGraphGrammarSampler getNext() throws Exception 
     {
@@ -57,5 +58,25 @@ public class LGraphGrammarSystematicDFSIterator {
                 open.addAll(0, successors);
             }
         }
+    }
+
+    @Override
+    public boolean hasNext() {
+        return (!open.isEmpty());
+    }
+
+    @Override
+    public LGraphGrammarSampler next() {
+        try {
+            return getNext();
+        } catch (Exception ex) {
+            Logger.getLogger(LGraphGrammarSystematicDFSIterator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    @Override
+    public void remove() {
+        throw new UnsupportedOperationException();
     }
 }
